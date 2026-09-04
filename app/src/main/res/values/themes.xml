@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CheckInNow" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- 1. Đặt màu nền cho Status Bar -->
+        <item name="android:statusBarColor">#F8FAFC</item>
+
+        <!-- 2. Bật icon/chữ màu TỐI (dùng khi nền Status Bar là màu SÁNG) -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Theme.CheckInNow" parent="Base.Theme.CheckInNow" />
+</resources>

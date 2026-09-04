@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="12dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Tên ngày trong tuần -->
+    <TextView
+        android:id="@+id/tvThu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#1F2937"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:text="Thứ 2" />
+
+    <!-- Nút chọn giờ Check-in -->
+    <Button
+        android:id="@+id/btnCheckIn"
+        android:layout_width="72dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_time_chip"
+        android:padding="0dp"
+        android:textColor="#4B5563"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        tools:text="08:00" />
+
+    <Space
+        android:layout_width="8dp"
+        android:layout_height="wrap_content" />
+
+    <!-- Nút chọn giờ Check-out -->
+    <Button
+        android:id="@+id/btnCheckOut"
+        android:layout_width="72dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_time_chip"
+        android:padding="0dp"
+        android:textColor="#4B5563"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        tools:text="17:30" />
+
+    <Space
+        android:layout_width="12dp"
+        android:layout_height="wrap_content" />
+
+    <!-- Công tắc Bật/Tắt dạng Switch thuần -->
+    <Switch
+        android:id="@+id/switchEnabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:checked="true" />
+
+</LinearLayout>

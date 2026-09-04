@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "274956858603",
+    "project_id": "checkinnow-7be02",
+    "storage_bucket": "checkinnow-7be02.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274956858603:android:752a8cc5b7154679abbaae",
+        "android_client_info": {
+          "package_name": "com.example.checkinnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274956858603-sktu326bfosgljg4mp6k6nj3id6k6u3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.checkinnow",
+            "certificate_hash": "acb88209299df77b4ecf80f482b66a0cb4e00619"
+          }
+        },
+        {
+          "client_id": "274956858603-aqmrm48q34h7v936k9b4pl6tdrlucnhn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuOSUFJylRvfsb2Obix5K-CXxtVkTjvtI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274956858603-aqmrm48q34h7v936k9b4pl6tdrlucnhn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
