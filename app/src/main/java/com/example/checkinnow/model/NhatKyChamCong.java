@@ -20,13 +20,7 @@ public class NhatKyChamCong {
     private String gioThucTe;
 
 
-    public NhatKyChamCong(
-            String ngay,
-            String loai,
-            String gioDuKien,
-            String trangThai,
-            String gioThucTe
-    ) {
+    public NhatKyChamCong(String ngay, String loai, String gioDuKien, String trangThai, String gioThucTe) {
         this.ngay = ngay;
         this.loai = loai;
         this.gioDuKien = gioDuKien;

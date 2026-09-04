@@ -10,65 +10,29 @@ import com.example.checkinnow.util.NotificationUtil;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    public static final String EXTRA_LOAI =
-            "loai";
+    public static final String EXTRA_LOAI = "loai";
 
-    public static final String EXTRA_GIO =
-            "gio";
+    public static final String EXTRA_GIO = "gio";
 
-    public static final String EXTRA_THU =
-            "thu";
+    public static final String EXTRA_THU = "thu";
 
     @Override
-    public void onReceive(
-            Context context,
-            Intent intent
-    ) {
+    public void onReceive(Context context, Intent intent) {
 
-        String loai =
-                intent.getStringExtra(
-                        EXTRA_LOAI
-                );
-
-        String gio =
-                intent.getStringExtra(
-                        EXTRA_GIO
-                );
-        int thu =
-                intent.getIntExtra(
-                        EXTRA_THU,
-                        -1
-                );
-
+        String loai = intent.getStringExtra(EXTRA_LOAI);
+        String gio = intent.getStringExtra(EXTRA_GIO);
+        int thu = intent.getIntExtra(EXTRA_THU, -1);
 
         if (loai == null || gio ==null ||thu == -1 ){
             return;
         }
 
-
         if ("CHECK_IN".equals(loai)) {
-
-            NotificationUtil
-                    .showCheckInNotification(
-                            context,
-                            gio
-                    );
-
+            NotificationUtil.showCheckInNotification(context, gio);
         } else if ("CHECK_OUT".equals(loai)) {
-
-            NotificationUtil
-                    .showCheckOutNotification(
-                            context,
-                            gio
-                    );
+            NotificationUtil.showCheckOutNotification(context, gio);
         }
 
-        AlarmManagerUtil
-                .datAlarmTuanSau(
-                        context,
-                        thu,
-                        gio,
-                        loai
-                );
+        AlarmManagerUtil.datAlarmTuanSau(context, thu, gio, loai);
     }
 }

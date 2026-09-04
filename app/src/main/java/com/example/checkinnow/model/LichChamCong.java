@@ -15,12 +15,7 @@ public class LichChamCong {
 
     private boolean enabled;
 
-    public LichChamCong(
-            int thu,
-            String gioCheckIn,
-            String gioCheckOut,
-            boolean enabled
-    ) {
+    public LichChamCong(int thu, String gioCheckIn, String gioCheckOut, boolean enabled) {
         this.thu = thu;
         this.gioCheckIn = gioCheckIn;
         this.gioCheckOut = gioCheckOut;

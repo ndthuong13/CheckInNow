@@ -21,8 +21,7 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ScheduleActivity extends AppCompatActivity
-        implements LichChamCongAdapter.OnTimeClickListener {
+public class ScheduleActivity extends AppCompatActivity implements LichChamCongAdapter.OnTimeClickListener {
 
     private RecyclerView recyclerView;
 
@@ -32,72 +31,41 @@ public class ScheduleActivity extends AppCompatActivity
 
     private AppDatabase database;
 
-    private final List<LichChamCong> danhSach =
-            new ArrayList<>();
+    private final List<LichChamCong> danhSach = new ArrayList<>();
 
-    private final ExecutorService databaseExecutor =
-            Executors.newSingleThreadExecutor();
+    private final ExecutorService databaseExecutor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(
-                R.layout.activity_schedule
-        );
+        setContentView(R.layout.activity_schedule);
 
-        recyclerView =
-                findViewById(R.id.recyclerViewLich);
+        recyclerView = findViewById(R.id.recyclerViewLich);
+        btnLuuLich = findViewById(R.id.btnLuuLich);
+        database = AppDatabase.getDatabase(this);
+        adapter = new LichChamCongAdapter(danhSach, this);
 
-        btnLuuLich =
-                findViewById(R.id.btnLuuLich);
-
-        database =
-                AppDatabase.getDatabase(this);
-
-        adapter =
-                new LichChamCongAdapter(
-                        danhSach,
-                        this
-                );
-
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(this)
-        );
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
         loadLich();
 
-        btnLuuLich.setOnClickListener(v ->
-                saveLich()
-        );
+        btnLuuLich.setOnClickListener(v -> saveLich());
     }
 
     private void loadLich() {
 
         databaseExecutor.execute(() -> {
-
-            List<LichChamCong> lichTuDatabase =
-                    database
-                            .lichChamCongDao()
-                            .getAll();
+            List<LichChamCong> lichTuDatabase = database.lichChamCongDao().getAll();
 
             runOnUiThread(() -> {
-
                 danhSach.clear();
-
                 if (lichTuDatabase.isEmpty()) {
-
                     taoDuLieuMacDinh();
-
                 } else {
-
-                    danhSach.addAll(
-                            lichTuDatabase
-                    );
+                    danhSach.addAll(lichTuDatabase);
                 }
-
                 adapter.notifyDataSetChanged();
             });
         });
@@ -109,130 +77,72 @@ public class ScheduleActivity extends AppCompatActivity
 
             boolean lamViec = i <= 5;
 
-            String checkIn =
-                    lamViec ? "08:00" : null;
+            String checkIn = lamViec ? "08:00" : null;
 
-            String checkOut =
-                    lamViec ? "17:30" : null;
+            String checkOut = lamViec ? "17:30" : null;
 
-            danhSach.add(
-                    new LichChamCong(
-                            i,
-                            checkIn,
-                            checkOut,
-                            lamViec
-                    )
-            );
+            danhSach.add(new LichChamCong(i, checkIn, checkOut, lamViec));
         }
     }
 
     private void saveLich() {
-
         databaseExecutor.execute(() -> {
-
             for (LichChamCong lich : danhSach) {
-
-                database
-                        .lichChamCongDao()
-                        .insert(lich);
+                database.lichChamCongDao().insert(lich);
             }
-
 
             // Đặt lại toàn bộ alarm
             datTatCaAlarm();
 
-            AlarmManagerUtil.datAlarmNgayMoi(
-                    getApplicationContext()
-            );
-
+            AlarmManagerUtil.datAlarmNgayMoi(getApplicationContext());
 
             runOnUiThread(() -> {
-
-                Toast.makeText(
-                        this,
-                        "Đã lưu lịch chấm công",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(this, "Đã lưu lịch chấm công", Toast.LENGTH_SHORT).show();
             });
         });
     }
 
     @Override
     public void onCheckInClick(int position) {
-
-        hienThiTimePicker(
-                position,
-                true
-        );
+        hienThiTimePicker(position, true);
     }
 
     @Override
     public void onCheckOutClick(int position) {
-
-        hienThiTimePicker(
-                position,
-                false
-        );
+        hienThiTimePicker(position, false);
     }
 
-    private void hienThiTimePicker(
-            int position,
-            boolean isCheckIn
-    ) {
+    private void hienThiTimePicker(int position, boolean isCheckIn) {
 
-        LichChamCong lich =
-                danhSach.get(position);
+        LichChamCong lich = danhSach.get(position);
 
-        String gioHienTai =
-                isCheckIn
-                        ? lich.getGioCheckIn()
-                        : lich.getGioCheckOut();
+        String gioHienTai = isCheckIn ? lich.getGioCheckIn() : lich.getGioCheckOut();
 
         int hour = 8;
         int minute = 0;
 
         if (gioHienTai != null) {
 
-            String[] parts =
-                    gioHienTai.split(":");
-
-            hour =
-                    Integer.parseInt(parts[0]);
-
-            minute =
-                    Integer.parseInt(parts[1]);
+            String[] parts = gioHienTai.split(":");
+            hour = Integer.parseInt(parts[0]);
+            minute = Integer.parseInt(parts[1]);
         }
 
-        TimePickerDialog dialog =
-                new TimePickerDialog(
-                        this,
-                        (view, hourOfDay, minuteOfHour) -> {
+        TimePickerDialog dialog = new TimePickerDialog(this, (view, hourOfDay, minuteOfHour) -> {
 
-                            String time =
-                                    String.format(
-                                            Locale.getDefault(),
-                                            "%02d:%02d",
-                                            hourOfDay,
-                                            minuteOfHour
-                                    );
+            String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minuteOfHour);
 
-                            if (isCheckIn) {
-
-                                lich.setGioCheckIn(time);
-
-                            } else {
-
-                                lich.setGioCheckOut(time);
-                            }
-
-                            adapter.notifyItemChanged(
-                                    position
-                            );
-                        },
-                        hour,
-                        minute,
-                        true
-                );
+            if (isCheckIn) {
+                lich.setGioCheckIn(time);
+            } else {
+                lich.setGioCheckOut(time);
+            }
+            adapter.notifyItemChanged(position);
+        },
+                hour,
+                minute,
+                true
+        );
 
         dialog.show();
     }
